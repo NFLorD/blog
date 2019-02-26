@@ -1,0 +1,86 @@
+<main id="administrate">
+    <table id="articles">
+        <caption>Mes articles</caption>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Gestion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($articles as $index => $article) : ?>
+            <tr>
+                <td><?= $index + 1 ?></td>
+                <td><?= $article["title"] ?></td>
+                <td><?= $article["firstname"] . " " . $article["lastname"] ?></td>
+                <td><a href="#" data-idedit="<?= $article["id"] ?>" title="Modifier"><i class="fas fa-edit"></i></a><a href="delete.php?id=<?= $article["id"] ?>" title="Supprimer"><i class="fas fa-times"></i></a></td>
+            </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+    <form action="edit.php" id="form" method="post" style="display: none">
+        <label for="title">Titre :</label>
+        <input name="title" id="title" type="text">
+        <label for="content">Contenu :</label>
+        <textarea name="content" id="content" type="text" cols="70" rows="25"></textarea>
+        <label for="date">Date :</label>
+        <input name="date" id="date" type="datetime">
+        <label for="author">Auteur(e) :</label>
+        <select name="author" id="author">
+            <?php foreach ($authors as $author) : ?>
+            <option value="<?= $author["id"] ?>"><?= $author["firstname"] . " " . $author["lastname"] ?></option>
+            <?php endforeach ?>
+        </select>
+        <label for="category">Catégorie :</label>
+        <select name="category" id="category">
+            <?php foreach ($categories as $category) : ?>
+            <option value="<?= $category["id"] ?>"><?= $category["type"] ?></option>
+            <?php endforeach ?>
+        </select>
+
+        <input type="text" id="id" name="id" style="display: none">
+
+        <button type="submit">Envoyer</button>
+    </form>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        let ckEditor;
+        ClassicEditor
+            .create( document.querySelector( '#content' ) )
+            .then( editor => {
+                ckEditor = editor;
+                    console.log( editor );
+            } )
+            .catch( error => {
+                    console.error( error );
+            } );
+
+        $("a[data-idedit]").on("click", handleEdit);
+        function handleEdit(){
+            $("#id").val(this.dataset.idedit);
+            $.post("edit.php", {edit : this.dataset.idedit}, handleArticleData);
+        }
+        function handleArticleData(response){
+            let result = JSON.parse(response);
+            $("#form").show();
+            $("#title").val(result.title);
+            ckEditor.setData(result.content);
+            $("#date").val(result.creation_date);
+            $("#author").val(result.author_id);
+            $("#category").val(result.category_id);
+        }
+
+        $("a[title='Supprimer']").on("click", function(e){
+            if(window.confirm("Etes-vous sûr de vouloir supprimer cet article ?")){
+                return;
+            } else {
+                e.preventDefault();
+            }
+        });
+    </script>
+</main>
+

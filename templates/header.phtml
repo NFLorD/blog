@@ -1,0 +1,36 @@
+<header>
+    <h1>Le blog de Pénélope et Michèle</h1>
+    <nav>
+        <a href="index.php">Accueil</a>
+        <?php if ($_SESSION['authLevel'] > 1) : ?>
+            <a href="new.php">Nouvel article</a>
+            <a href="administrate.php">Gestion du blog</a>
+        <?php endif ?>
+        <?php if (!$_SESSION['isConnected']) : ?>
+            <a href="#" id="connectLink">Connexion</a>
+            <a href="signup_form.php">Inscription</a>
+        <?php endif ?>
+    </nav>
+    <?php if ($_SESSION['isConnected']) : ?><a href="disconnect.php"><i class="fas fa-cogs"></i> Déconnexion (<?= $_SESSION['username'] ?>)</a><?php endif ?>
+    <?php if ($_SESSION['authLevel'] == 10) : ?><a id="masterLink" href="master.php"><i class="fas fa-users"></i> Gestion des usagers</a><?php endif ?>
+    <form action="connect.php" method="post" id="connectForm" style="display: none">
+        <div>
+            <label for="username">Identifiant : </label><input id="username" name="username" type="text">
+        </div>
+        <div>
+            <label for="password">Mot de passe : </label><input id="password" name="password" type="password">
+        </div>
+        <div>
+            <button>Connexion</button>
+        </div>
+    </form>
+    <script>
+        document.getElementById("connectLink").addEventListener("click", function(){
+            if(document.getElementById("connectForm").style.display == "flex"){
+                document.getElementById("connectForm").style.display = "none";
+            } else {
+                document.getElementById("connectForm").style.display = "flex";
+            }
+        });
+    </script>
+</header>

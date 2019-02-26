@@ -1,0 +1,11 @@
+<main id="index">
+    <section>
+        <?php foreach ($data as $index => $article) : ?>
+        <article id="<?= $index ?>">
+            <h2><a href="article.php?art=<?= $article["id"] ?>"><?= $article["title"] ?></a></h2>
+            <p><?= $article["content"] ?></p>
+            <em><?= $article["firstname"] . " " . $article["lastname"] . " - Le " . substr($article["creation_date"], 0, -8) . " à " . substr($article["creation_date"], -8) ?></em>
+        </article>
+        <?php endforeach ?>
+    </section>
+</main>

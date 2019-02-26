@@ -1,0 +1,333 @@
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0 auto;
+  font-family: "Source Sans Pro", sans-serif;
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
+}
+
+header {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  background-color: firebrick;
+  height: 140px;
+  margin-bottom: 25px;
+}
+
+header > a {
+  align-self: flex-end;
+  margin-right: 20px;
+  color: white;
+}
+
+#masterLink{
+  position: absolute;
+  top: 90px;
+  right: 10px;
+  color: white;
+}
+
+#users i{
+  color: firebrick;
+}
+
+#users td:last-of-type,
+#users td:nth-last-child(2){
+  text-align: center;
+}
+
+nav a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: white;
+}
+
+h1 {
+  margin: 0;
+  padding: 30px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Libre Baskerville", serif;
+}
+
+h2 a {
+  color: black;
+}
+
+h5 {
+  font-weight: normal;
+}
+
+main {
+  clear: both;
+  width: 80vw;
+  margin: 0 auto;
+}
+
+section {
+  margin-bottom: 100px;
+}
+
+article {
+  background-color: whitesmoke;
+  padding: 20px;
+  margin: 30px;
+}
+
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1.2rem;
+  text-align: center;
+  width: 100%;
+  background-color: firebrick;
+}
+
+table,
+th,
+td,
+tr {
+  border: 1px solid black;
+}
+
+td:last-child {
+  text-align: center;
+}
+
+main#administrate {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin-bottom: 75px;
+}
+
+#administrate form {
+  margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+#administrate form input,
+#administrate form button {
+  margin-top: 5px;
+}
+
+#administrate form > button {
+  width: 100px;
+  margin: 15px auto;
+}
+
+caption {
+  margin-bottom: 25px;
+  font-size: 25px;
+}
+
+#comments article {
+  border: 1px solid black;
+}
+
+main#index article {
+  width: 43%;
+}
+
+main#index article p:last-of-type {
+  padding-bottom: 25px;
+  border-bottom: 1px solid gray;
+}
+
+main#index section {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+footer img {
+  width: 50px;
+  display: block;
+  margin: 0 auto;
+}
+
+footer a {
+  color: white;
+}
+
+footer small {
+  line-height: 20px;
+  padding: 20px;
+  width: 50%;
+}
+
+main#newArticle form {
+  display: flex;
+  flex-flow: row wrap;
+  width: 95%;
+  margin: 15px auto;
+}
+
+main#newArticle fieldset:first-child {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+}
+
+main#newArticle fieldset:first-child select,
+main#newArticle fieldset:first-child input {
+  margin: 5px;
+}
+
+main#newArticle fieldset:nth-of-type(2) {
+  width: 73%;
+}
+
+main#newArticle fieldset:nth-of-type(3) {
+  width: 100%;
+  text-align: center;
+  border: none;
+}
+
+main#newArticle textarea {
+  width: 100%;
+}
+
+main#newArticle fieldset > button {
+  width: 120px;
+  margin: 15px auto;
+}
+
+#articleDetail {
+  margin-bottom: 75px;
+}
+
+#comments article p,
+#comments article h5 {
+  margin: 2px;
+  padding: 2px;
+}
+
+#comments article {
+  margin: 10px;
+  padding: 15px;
+}
+
+#comments + form {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin: auto;
+  width: 90%;
+}
+
+#comments + form fieldset {
+  display: flex;
+  flex-direction: column;
+}
+
+#comments + form fieldset:first-of-type {
+  width: 20%;
+}
+
+#comments + form fieldset:nth-of-type(2) {
+  width: 78%;
+}
+
+#comments + form fieldset:last-of-type {
+  width: 100%;
+  border: none;
+}
+
+#comments + form fieldset:last-of-type button {
+  margin: 10px auto;
+}
+
+main {
+  margin-bottom: 75px;
+}
+
+form#connectForm {
+  display: none;
+  position: absolute;
+  top: 30vh;
+  left: 32vw;
+  width: 25vw;
+  height: 180px;
+  border: 1px solid black;
+  background-color: white;
+  flex-direction: column;
+  padding-top: 15px;
+}
+
+#connectForm div {
+  width: 90%;
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+#connectForm input {
+  width: 70%;
+}
+
+#connectForm div:last-of-type {
+  border: none;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+#connectForm button {
+  background-color: firebrick;
+  border-radius: 20px;
+}
+
+#administrate a {
+  color: firebrick;
+}
+
+#arrowUp {
+  position: fixed;
+  z-index: 2;
+  color: firebrick;
+  cursor: pointer;
+  transform: scale(1.7);
+  bottom: -10%;
+  right: 20%;
+  background: black;
+  border-radius: 50%;
+  border: 1px solid black;
+  transition: opacity 1s;
+}
+
+#arrowUp:active {
+  transform: scale(2);
+}
+
+main#signup form {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  margin: 40px auto;
+}
+
+main#signup form > button {
+  width: 100px;
+  margin: 15px auto;
+}

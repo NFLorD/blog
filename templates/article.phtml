@@ -1,0 +1,33 @@
+<main id="articleDetail">
+    <section id="article">
+        <h2><?= $data['title'] ?></h2>
+        <em><?= "Par " . $data['firstname'] . " " . $data['lastname'] . " - Le " . substr($data["creation_date"], 0, -8) . " à " . substr($data["creation_date"], -8) ?></em>
+        <article><?= $data['content'] ?></article>
+    </section>
+    <section id="comments">
+        <strong><?= count($comments) ?> commentaires</strong>
+        <?php foreach ($comments as $com) : ?>
+        <article>
+            <small><?= $com['creation_date'] ?></small>
+            <h5><strong><?= $com['nickname'] ?></strong> dit :</h5>
+            <p><?= $com["content"] ?></p>
+        </article>
+        <?php endforeach ?>
+    </section>
+    <form action="addComment.php" method="post">
+        <fieldset <?php if ($_SESSION['authLevel'] > 0) : ?>style="display: none"<?php endif ?>>
+            <label for="nickname">Pseudo :</label>
+            <input value="<?php if ($_SESSION['authLevel'] > 0) {
+                                echo $_SESSION['username'];
+                            } ?>" id="nickname" name="nickname" type="text">
+        </fieldset>
+        <fieldset>
+            <label for="content">Commentaire :</label>
+            <textarea name="content" id="content" cols="102" rows="10"></textarea>
+        </fieldset>
+        <fieldset>
+            <input type="text" name="id" id="id" value="<?= $data['id'] ?>" style="display: none">
+            <button type="submit">Envoyer</button>
+        </fieldset>
+    </form>
+</main>

@@ -1,0 +1,33 @@
+<main id="newArticle">
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckeditor.js"></script>
+    
+    <form action="add.php" method="post">
+        <fieldset>
+            <label for="title">Titre :</label><input id="title" name="title" type="text" value="">
+            <label for="category">Catégorie :</label><select name="category" id="category">
+                <?php foreach($categories as $category): ?>
+                <option value="<?= $category['id']?>"><?= $category['type']?></option>
+                <?php endforeach ?>
+            </select>
+        </fieldset>
+        <fieldset>
+            <label for="content">Article :</label><textarea name="content" id="content" cols="30" rows="10"></textarea>
+        </fieldset>
+        <fieldset>
+            <button type="submit">Publier</button>
+        </fieldset>
+    </form>
+    
+    <script>
+        let ckEditor;
+        ClassicEditor
+            .create( document.querySelector( '#content' ) )
+            .then( editor => {
+                ckEditor = editor;
+                    console.log( editor );
+            } )
+            .catch( error => {
+                    console.error( error );
+            } );
+    </script>
+</main>

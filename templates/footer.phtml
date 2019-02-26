@@ -1,0 +1,29 @@
+<i id="arrowUp" class="fas fa-chevron-circle-up"></i>
+<script>
+	document.addEventListener("scroll", handleScroll);
+	const arrowUp = document.getElementById("arrowUp");
+	
+	function handleScroll(){
+		if(window.scrollY <= 200){
+			arrowUp.style.bottom = "-20%";
+			arrowUp.style.opacity = "0";
+		} else {
+			arrowUp.style.bottom = "18%";
+			arrowUp.style.opacity = "1";
+		}
+	}
+
+	arrowUp.addEventListener("click", function(){
+		setTimeout(function(){
+			window.scroll(0,0);
+		}, 200);
+	});
+</script>
+<footer>
+    <a href="#"><img alt="Logo 3WA" src="https://3wa.fr/wp-content/themes/3wa2015/img/logos/big.png"/></a>
+    <small>
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore <a href="#">et dolore magna aliqua</a>.
+		Duis aute irure dolor in reprehenderit in voluptate velit esse
+	    cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</small>
+</footer>

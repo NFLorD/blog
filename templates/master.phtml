@@ -1,0 +1,26 @@
+<main>
+    <table id="users">
+        <thead>
+            <tr>
+                <td></td>
+                <td>Pseudonyme</td>
+                <td>Identité</td>
+                <td>Mail</td>
+                <td>Niveau d'accès</td>
+                <td>Suppression</td>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($users as $index => $user): ?>
+                <tr>
+                    <td><?= $index +1 ?></td>
+                    <td><?= $user['username'] ?></td>
+                    <td><?php if(!empty($user['firstname'])): echo $user['firstname']." ". $user['lastname']; else :?>Inconnue<?php endif ?></td>
+                    <td><?= $user['mail'] ?></td>
+                    <td><?= $user['accesslevel'] ?> <a href="" title="Modifier"><i class="fas fa-key"></i></a></td>
+                    <td><a href="" title="Supprimer l'utilisateur"><i class="fas fa-user-times"></i></a></td>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+</main>
