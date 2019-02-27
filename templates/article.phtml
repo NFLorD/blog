@@ -11,6 +11,7 @@
             <small><?= $com['creation_date'] ?></small>
             <h5><strong><?= $com['nickname'] ?></strong> dit :</h5>
             <p><?= $com["content"] ?></p>
+            <?php if ($_SESSION['authLevel'] == 10) : ?><a href="deleteComment.php?id=<?= $com['id'] ?>"><i class="fas fa-times"></i></a><?php endif ?>
         </article>
         <?php endforeach ?>
     </section>

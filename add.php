@@ -6,8 +6,7 @@ if (!empty($_POST)) {
     $newDate = new Datetime();
     $newDate = $newDate->format('Y-m-d H:i:s');
 } else {
-    header("Location: new.php");
-    exit;
+    redirect("new.php");
 }
 
 $DB = connect("localhost", "blog");
@@ -22,6 +21,5 @@ $query->execute([
 $query = null;
 $DB = null;
 
-header("Location: index.php");
-exit;
+redirect("index.php");
 ?>

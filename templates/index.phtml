@@ -1,11 +1,25 @@
 <main id="index">
+    <aside>
+        <?php foreach ($categories as $category) : ?>
+        <a href="index.php?page=<?= $page ?>&direction=<?= $direction ?>&order=<?= $order ?>&categ=<?= $category ?>"><?= $category ?></a>
+        <?php endforeach ?>
+    </aside>
     <section>
         <?php foreach ($data as $index => $article) : ?>
         <article id="<?= $index ?>">
             <h2><a href="article.php?art=<?= $article["id"] ?>"><?= $article["title"] ?></a></h2>
             <p><?= $article["content"] ?></p>
-            <em><?= $article["firstname"] . " " . $article["lastname"] . " - Le " . substr($article["creation_date"], 0, -8) . " à " . substr($article["creation_date"], -8) ?></em>
+            <em><?= $article["type"] ?> - <?= $article["firstname"] . " " . $article["lastname"] . " - Le " . substr($article["creation_date"], 0, -8) . " à " . substr($article["creation_date"], -8) ?></em>
         </article>
         <?php endforeach ?>
+        <nav>
+            <a href="index.php?page=1&direction=<?= $direction ?>&order=<?= $order ?>&categ=<?= $categ ?>">1</a>
+            <?php for ($i = $page - 7; $i < $page + 7; $i++) : ?>
+                <?php if ($i > 1 && $i < ceil($count / $limit)) : ?>
+                    <a href="index.php?page=<?= $i ?>&direction=<?= $direction ?>&order=<?= $order ?>&categ=<?= $categ ?>"><?= $i ?></a>
+                <?php endif ?>
+            <?php endfor ?>
+            <a href="index.php?page=<?= ceil($count / $limit) ?>&direction=<?= $direction ?>&order=<?= $order ?>&categ=<?= $categ ?>"><?= ceil($count / $limit) ?></a>
+        </nav>
     </section>
 </main>

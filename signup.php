@@ -7,13 +7,19 @@ if ($newUser['mail'] == false || $newUser['mail'] == null || $newUser['username'
     header("Location: signup_form.php");
     exit;
 }
+$newUser['password'] = password_hash($newUser['password'], PASSWORD_DEFAULT);
+$date = new Datetime();
+$date = $date->format("Y-m-d H:i:s");
 
 $DB = connect("localhost", "blog");
-$query = $DB->prepare("INSERT INTO users (username, `password`, mail, accesslevel) VALUES (:u, :p, :m, 1)");
+$query = $DB->prepare("INSERT INTO users (firstname, lastname, username, `password`, mail, accesslevel, signup_date) VALUES (:f, :l, :u, :p, :m, 1, :s)");
 $query->execute([
+    ":f" => $newUser['firstname'],
+    ":l" => $newUser['lastname'],
     ":u" => $newUser['username'],
     ":p" => $newUser['password'],
-    ":m" => $newUser['mail']
+    ":m" => $newUser['mail'],
+    ":s" => $date
 ]);
 
 echo "<a href='index.php'>Inscription réussie.</a>";

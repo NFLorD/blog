@@ -4,24 +4,21 @@ require "library.php";
 $template = "article";
 
 if (empty($_GET)) {
-    header("Location: index.php");
-    exit;
+    redirect("index.php");
 }
 
 $key = filter_input(INPUT_GET, 'art', FILTER_VALIDATE_INT);
 if ($key == null || $key == false) {
-    header("Location: index.php");
-    exit;
+    redirect("index.php");
 }
 
 $DB = connect("localhost", "blog");
-$query = $DB->prepare("SELECT articles.*, authors.firstname, authors.lastname FROM articles JOIN authors ON articles.author_id = authors.id WHERE articles.id = :k");
+$query = $DB->prepare("SELECT articles.*, users.firstname, users.lastname FROM articles JOIN users ON articles.author_id = users.id WHERE articles.id = :k");
 $query->execute(array(':k' => $key));
 $data = $query->fetch();
 
 if (empty($data)) {
-    header("Location: index.php");
-    exit;
+    redirect("index.php");
 }
 
 $query = $DB->prepare("SELECT * FROM comments WHERE article_id = :k ORDER BY creation_date DESC");

@@ -1,5 +1,15 @@
 <?php
 
+session_start();
+if (empty($_SESSION['isConnected'])) {
+    $_SESSION['isConnected'] = false;
+    $_SESSION['authLevel'] = 0;
+}
+if (empty($_SESSION['previousLocation'])) {
+    $_SESSION['previousLocation'] = "index.php";
+}
+// var_dump($_SESSION);
+
 /**
  * Returns a direction for sorted queries between ASC and DESC, DESC being default if no $_POST has been submitted
  * @param void
@@ -42,7 +52,7 @@ function filterPostVariable($variableInPost, $acceptableEntries, $defaultValue)
  */
 function connect($host, $dbname)
 {
-    return new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", "root", "", [
+    return new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", "root", "troiswa", [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     ]);
 }
@@ -79,17 +89,54 @@ function filter_input_array_with_default_flags($type, $filter, $flags, $add_empt
 function cutWords(string $str, int $maxWords) : string
 {
     if (strlen($str) < $maxWords) return $str;
-    return implode(" ", array_slice(explode(" ", $str, $maxWords), 0, -1)) . "[...]";
+    return implode(" ", array_slice(explode(" ", $str, $maxWords), 0, -1)) . " [...]";
 }
 
-
-
-session_start();
-if (empty($_SESSION['isConnected'])) {
-    $_SESSION['isConnected'] = false;
-    $_SESSION['authLevel'] = 0;
+/**
+ * Redirects to another page.
+ *
+ * @param string $url A url.
+ * @param string $tag #something. Default is empty string.
+ * @return void
+ */
+function redirect(string $url, string $tag = "") : void
+{
+    header("Location: " . $url . $tag);
+    exit;
 }
-if (empty($_SESSION['previousLocation'])) {
-    $_SESSION['previousLocation'] = "index.php";
+
+function checkInt($const, $var)
+{
+    return filter_input($const, $var, FILTER_VALIDATE_INT);
 }
+
+function sanitize($type)
+{
+    return filter_input_array($type, FILTER_SANITIZE_SPECIAL_CHARS, true);
+}
+
+function query(PDO $database, string $sql, bool $multipleRows = true, array $args = [], bool $isOneColumn = false, bool $count = false, bool $hasNoReturn = false)
+{
+    $query = $database->prepare($sql);
+    $query->execute($args);
+    if ($hasNoReturn) return;
+    if ($count) return count($query->fetchAll(PDO::FETCH_ASSOC));
+    if ($multipleRows && !$isOneColumn) return $query->fetchAll(PDO::FETCH_ASSOC);
+    if (!$multipleRows && !$isOneColumn) return $query->fetch(PDO::FETCH_ASSOC);
+    if ($multipleRows && $isOneColumn) {
+        $data = $query->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($data as $index => $info) {
+            $data[$index] = implode($info);
+        }
+        return $data;
+    }
+    if (!$multipleRows && $isOneColumn) {
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+        foreach ($data as $index => $info) {
+            $data[$index] = implode($info);
+        }
+        return $data;
+    }
+}
+
 ?>

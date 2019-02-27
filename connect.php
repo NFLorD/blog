@@ -5,18 +5,17 @@ $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
 $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
 
 $DB = connect("localhost", "blog");
-$query = $DB->prepare("SELECT username, accesslevel, authors.id FROM users LEFT JOIN `authors` ON (users.id = authors.user_id) WHERE username = :n AND `password` = :p");
+$query = $DB->prepare("SELECT username, accesslevel, `password`, id FROM users WHERE username = :n");
 $query->execute([
-    ":n" => $username,
-    ":p" => $password
+    ":n" => $username
 ]);
 
-$connection = $query->fetch();
-if (!empty($connection)) {
+$user = $query->fetch();
+if (password_verify($password, $user['password'])) {
     $_SESSION['isConnected'] = true;
-    $_SESSION['username'] = $connection['username'];
-    $_SESSION['author_id'] = $connection['id'];
-    $_SESSION['authLevel'] = $connection['accesslevel'];
+    $_SESSION['username'] = $user['username'];
+    $_SESSION['author_id'] = $user['id'];
+    $_SESSION['authLevel'] = $user['accesslevel'];
 }
 
 $query = null;

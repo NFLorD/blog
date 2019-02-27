@@ -27,29 +27,33 @@ header {
   margin-bottom: 25px;
 }
 
-header > a {
+header a {
   align-self: flex-end;
   margin-right: 20px;
   color: white;
 }
 
-#masterLink{
+#secondNav {
   position: absolute;
   top: 90px;
   right: 10px;
-  color: white;
 }
 
-#users i{
+#secondNav a {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#users i {
   color: firebrick;
 }
 
 #users td:last-of-type,
-#users td:nth-last-child(2){
+#users td:nth-last-child(2) {
   text-align: center;
 }
 
-nav a {
+#firstNav a {
   margin-right: 20px;
   text-decoration: none;
   color: white;
@@ -145,10 +149,53 @@ caption {
 
 #comments article {
   border: 1px solid black;
+  position: relative;
+}
+
+#comments article a {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+#comments article a i {
+  color: firebrick;
+}
+
+main#index section nav a {
+  color: firebrick;
+}
+
+main#index nav {
+  width: 100%;
+  text-align: center;
+}
+
+main#index {
+  position: relative;
+}
+
+main#index aside {
+  display: flex;
+  flex-direction: column;
+  background: whitesmoke;
+  border: 1px solid black;
+  position: fixed;
+  left: 40px;
+}
+
+main#index aside a {
+  margin: 20px;
+  color: firebrick;
+  border: 3px double firebrick;
+  width: 80px;
+  display: block;
+  text-align: center;
+  padding: 10px 0px;
 }
 
 main#index article {
-  width: 43%;
+  width: 45%;
 }
 
 main#index article p:last-of-type {
@@ -159,10 +206,13 @@ main#index article p:last-of-type {
 main#index section {
   display: flex;
   flex-flow: row wrap;
+  justify-content: space-around;
+  margin: auto;
 }
 
 footer img {
-  width: 50px;
+  border-radius: 50%;
+  width: 120px;
   display: block;
   margin: 0 auto;
 }
@@ -266,6 +316,7 @@ main {
 form#connectForm {
   display: none;
   position: absolute;
+  z-index: 10000;
   top: 30vh;
   left: 32vw;
   width: 25vw;
