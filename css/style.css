@@ -44,6 +44,11 @@ header a {
   margin-bottom: 5px;
 }
 
+#index nav a{
+  text-decoration: none;
+  font-size: 20px;
+}
+
 #users i {
   color: firebrick;
 }

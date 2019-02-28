@@ -12,13 +12,76 @@
         <tbody>
             <?php foreach ($users as $index => $user) : ?>
                 <tr>
-                    <td><?= $index + 1 ?></td>
+                    <td><?= $index ?></td>
                     <td><?= $user['username'] ?></td>
                     <td><?= $user['firstname'] . " " . $user['lastname'] ?></td>
                     <td><?= $user['mail'] ?></td>
-                    <td><?= $user['accesslevel'] ?><a href="#" title="Modifier"><i class="fas fa-key"></i></a></td>
+                    <td id="td<?= $user['id'] ?>">
+                        <div id="div<?= $user['id'] ?>"><?= $user['accesslevel'] ?><a href="#" data-id="<?= $user['id'] ?>" title="Modifier"><i class="fas fa-key"></i></a></div>
+                    </td>
                 </tr>
             <?php endforeach ?>
         </tbody>
     </table>
+    <script>
+        document.querySelectorAll("a[title='Modifier']").forEach(link => link.addEventListener("click", handleEdit));
+            
+        function handleEdit(){
+            document.querySelectorAll("a[title='Modifier']").forEach(link => link.removeEventListener("click", handleEdit));
+            
+            let id = this.dataset.id;
+            let accessLvl = this.parentElement.textContent;
+            let TD = document.querySelector("#td"+id);
+            TD.innerHTML = `
+                <form action="" id="form${id}">
+                    <input id="id" style="display:none" type="text">
+                    <input id="accessLevelEdit" type="number">
+                    <i class="fas fa-check"></i>
+                    <i class="fas fa-times"></i>
+                </form>
+            `;
+            let form = document.querySelector("#form"+id);
+            document.querySelector("#accessLevelEdit").value = accessLvl;
+
+            document.querySelector(":scope .fas.fa-check").addEventListener("click", handleValidate);
+            document.querySelector(":scope .fas.fa-times").addEventListener("click", handleCancel);
+            
+            function handleValidate(){
+                let inputAL = document.querySelector('#accessLevelEdit').value;
+                const request = new XMLHttpRequest();
+                request.open('POST', 'authChange.php');
+                // request.setRequestHeader("Content-Type", "text/plain");
+                let post = "id="+id+"&auth="+inputAL;
+                let formD = new FormData();
+                formD.append("id", id);
+                formD.append("auth", inputAL);
+                console.log(post);
+                console.log(formD);
+                request.send(formD);
+                TD.removeChild(form);
+                TD.innerHTML = `
+                    <div>${inputAL}<a href="#" data-id="${id}" title="Modifier"><i class="fas fa-key"></i></a></div>
+                `
+                document.querySelectorAll("a[title='Modifier']").forEach(link => link.addEventListener("click", handleEdit));
+            }
+            
+            function handleCancel(){
+                TD.removeChild(form);
+                TD.innerHTML = `
+                    <div>${accessLvl}<a href="#" data-id="${id}" title="Modifier"><i class="fas fa-key"></i></a></div>
+                `
+                document.querySelectorAll("a[title='Modifier']").forEach(link => link.addEventListener("click", handleEdit));
+            }
+        } 
+    </script>
+    <style>
+        .fas.fa-check, .fas.fa-times{
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        input[id='accessLevelEdit']{
+            width: 50px;
+        }
+    </style>
 </main>

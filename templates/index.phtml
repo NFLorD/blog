@@ -13,13 +13,23 @@
         </article>
         <?php endforeach ?>
         <nav>
-            <a href="index.php?page=1&direction=<?= $direction ?>&order=<?= $order ?>&categ=<?= $categ ?>">1</a>
+            <a data-id="1" href="index.php?page=1&direction=<?= $direction ?>&order=<?= $order ?>&categ=<?= $categ ?>">1</a>
             <?php for ($i = $page - 7; $i < $page + 7; $i++) : ?>
-                <?php if ($i > 1 && $i < ceil($count / $limit)) : ?>
-                    <a href="index.php?page=<?= $i ?>&direction=<?= $direction ?>&order=<?= $order ?>&categ=<?= $categ ?>"><?= $i ?></a>
+                <?php if ($i > 1 && $i < $maxPages) : ?>
+                    <a data-id="<?= $i ?>" href="index.php?page=<?= $i ?>&direction=<?= $direction ?>&order=<?= $order ?>&categ=<?= $categ ?>"><?= $i ?></a>
                 <?php endif ?>
             <?php endfor ?>
-            <a href="index.php?page=<?= ceil($count / $limit) ?>&direction=<?= $direction ?>&order=<?= $order ?>&categ=<?= $categ ?>"><?= ceil($count / $limit) ?></a>
+            <?php if ($maxPages != 1) : ?>
+                 <a data-id="<?= $maxPages ?>" href="index.php?page=<?= $maxPages ?>&direction=<?= $direction ?>&order=<?= $order ?>&categ=<?= $categ ?>"><?= $maxPages ?></a>
+            <?php endif ?>
         </nav>
     </section>
+    <script>
+        document.querySelectorAll("a[data-id]").forEach(function(link){
+            if(link.dataset.id == <?= $page ?>){
+                link.style.textDecoration = "underline";
+                link.style.color = "#851919";
+            }
+        });
+    </script>
 </main>

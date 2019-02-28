@@ -6,7 +6,7 @@ if ($_SESSION['authLevel'] != 10) {
 }
 
 $DB = connect("localhost", "blog");
-$query = $DB->prepare("SELECT * FROM users");
+$query = $DB->prepare(SQL_select("*", "users"));
 $query->execute();
 $users = $query->fetchAll();
 

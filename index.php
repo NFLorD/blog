@@ -66,6 +66,8 @@ foreach ($data as $index => $article) {
 $query = null;
 $DB = null;
 
+$maxPages = ceil($count / $limit);
+
 $_SESSION['previousLocation'] = "index.php";
 require_once "templates/template.phtml";
 ?>

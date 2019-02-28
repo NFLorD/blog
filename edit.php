@@ -11,12 +11,15 @@ if (!empty($_POST["edit"])) {
     $result = JSON_encode($result);
     echo $result;
 } else {
+    $date = new Datetime();
+    $date = $date->format("Y-m-d H:i:s");
     $toUpdate = filter_input_array(INPUT_POST);
     $DB = connect("localhost", "blog");
-    $query = $DB->prepare("UPDATE articles SET title = :t, content = :c, category_id = :ci WHERE id = :i");
+    $query = $DB->prepare("UPDATE articles SET title = :t, content = :c, modification_date = :m, category_id = :ci WHERE id = :i");
     $query->execute([
         ":t" => $toUpdate["title"],
         ":c" => $toUpdate["content"],
+        ":m" => $date,
         ":ci" => $toUpdate["category"],
         ":i" => $toUpdate["id"]
     ]);
