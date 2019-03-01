@@ -1,16 +1,19 @@
 <main id="articleDetail">
     <section id="article">
         <h2><?= $data['title'] ?></h2>
-        <em><?= "Par " . $data['firstname'] . " " . $data['lastname'] . " - Le " . substr($data["creation_date"], 0, -8) . " à " . substr($data["creation_date"], -8) ?></em>
+        <em><?= "Par " . $data['firstname'] . " " . $data['lastname'] . " - Le " . substr($data["creation_date"], 0, -8) . " à " . substr($data["creation_date"], -9, 6) ?><?php if ($data["modification_date"] != "") : echo " - Modifié le " . substr($data["modification_date"], 0, -8) . " à " . substr($data["modification_date"], -9, 6);
+                                                                                                                                                                            endif ?></em>
         <article><?= $data['content'] ?></article>
     </section>
     <section id="comments">
         <strong><?= count($comments) ?> commentaires</strong>
         <?php foreach ($comments as $com) : ?>
         <article>
-            <small><?= $com['creation_date'] ?></small>
+            <small><?= $com['creation_date'] ?><?php if ($com['modification_date'] != "") : echo " - Modifié (" . $com['modification_date'] . ")";
+                                                endif ?></small>
             <h5><strong><?= $com['nickname'] ?></strong> dit :</h5>
             <p><?= $com["content"] ?></p>
+            <?php if ($_SESSION['isConnected'] && $com['nickname'] == $_SESSION['username'] || $_SESSION['authLevel'] == 10) : ?><a data-id="<?= $com['id'] ?>" class="editCom" href="#">Modifier</a><?php endif ?>
             <?php if ($_SESSION['authLevel'] == 10) : ?><a href="deleteComment.php?id=<?= $com['id'] ?>"><i class="fas fa-times"></i></a><?php endif ?>
         </article>
         <?php endforeach ?>
@@ -31,4 +34,34 @@
             <button type="submit">Envoyer</button>
         </fieldset>
     </form>
+    <?php if ($_SESSION['isConnected']) : ?>
+        <script>
+            document.querySelectorAll("a.editCom").forEach(link => link.addEventListener("click", function(){
+                let paragraph = this.parentElement.childNodes[5];
+                let id = this.dataset.id;
+                let content = paragraph.textContent;
+
+                paragraph.innerHTML = `<textarea id="modif" cols="100" rows="10"></textarea><button id="conf">Confirmer</button>`;
+                
+                document.querySelector("#modif").value = content;
+                
+                confirmBtn = document.querySelector("#conf");
+                confirmBtn.addEventListener("click", handleConf);
+                function handleConf(){
+                    content =  document.querySelector("#modif").value;
+                    paragraph.innerHTML = content;
+
+                    const req = new XMLHttpRequest();
+                    req.open("post", "editComment.php");
+
+                    let k = new FormData();
+                    k.append("id", id);
+                    k.append("content", content);
+
+                    req.send(k);
+                }
+
+            }));
+        </script>
+    <?php endif ?>
 </main>

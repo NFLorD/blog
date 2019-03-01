@@ -26,8 +26,15 @@
             <button>Connexion</button>
         </div>
     </form>
-    <?php if (!$_SESSION['isConnected']) : ?>
+    <form style="margin-top: 10px" action="" method="post" id="colorForm">
+        <input <?php if ($_COOKIE['color'] == "firebrick") : ?>checked<?php endif ?> type="radio" name="color" id="firebrick" value="firebrick">
+        <input <?php if ($_COOKIE['color'] == "green") : ?>checked<?php endif ?> type="radio" name="color" id="green" value="green">
+        <input <?php if ($_COOKIE['color'] == "steelblue") : ?>checked<?php endif ?> type="radio" name="color" id="steelblue" value="steelblue">
+    </form>
+    
     <script>
+        <?php if (!$_SESSION['isConnected']) : ?>
+        // Connection form toggle
         document.getElementById("connectLink").addEventListener("click", function(){
             if(document.getElementById("connectForm").style.display == "flex"){
                 document.getElementById("connectForm").style.display = "none";
@@ -35,6 +42,11 @@
                 document.getElementById("connectForm").style.display = "flex";
             }
         });
+        <?php endif ?>
+
+        // Primary site color change
+        document.getElementsByName("color").forEach(btn => btn.addEventListener("change", function(){
+            document.getElementById("colorForm").submit();
+        }))
     </script>
-    <?php endif ?>
 </header>

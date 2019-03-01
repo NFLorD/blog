@@ -34,7 +34,7 @@ if (!empty($_GET['direction']) && in_array($_GET['direction'], $directions)) {
 if (!empty($_GET['order']) && in_array($_GET['order'], $orders)) {
     $order = $_GET['order'];
 } else {
-    $order = "creation_date";
+    $order = "modification_date DESC, creation_date";
 }
 
 if (!empty($_GET['categ']) && in_array($_GET['categ'], $categories)) {
@@ -46,7 +46,7 @@ if (!empty($_GET['categ']) && in_array($_GET['categ'], $categories)) {
 // 
 // REQUETE PRINCIPALE
 //
-$sql = "SELECT articles.`id`, articles.title, articles.content, articles.creation_date, users.firstname, users.lastname, categories.type 
+$sql = "SELECT articles.`id`, articles.title, articles.content, articles.creation_date, articles.modification_date, users.firstname, users.lastname, categories.type 
 FROM articles 
 JOIN users ON articles.author_id = users.id 
 JOIN categories ON articles.category_id = categories.id";

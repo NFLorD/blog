@@ -1,7 +1,7 @@
 <main id="index">
     <aside>
         <?php foreach ($categories as $category) : ?>
-        <a href="index.php?page=<?= $page ?>&direction=<?= $direction ?>&order=<?= $order ?>&categ=<?= $category ?>"><?= $category ?></a>
+        <a href="index.php?categ=<?= $category ?>"><?= $category ?></a>
         <?php endforeach ?>
     </aside>
     <section>
@@ -9,7 +9,8 @@
         <article id="<?= $index ?>">
             <h2><a href="article.php?art=<?= $article["id"] ?>"><?= $article["title"] ?></a></h2>
             <p><?= $article["content"] ?></p>
-            <em><?= $article["type"] ?> - <?= $article["firstname"] . " " . $article["lastname"] . " - Le " . substr($article["creation_date"], 0, -8) . " à " . substr($article["creation_date"], -8) ?></em>
+            <em><?= $article["type"] ?> - <?= $article["firstname"] . " " . $article["lastname"] . " - Le " . substr($article["creation_date"], 0, -8) . " à " . substr($article["creation_date"], -9, 6) ?><?php if ($article["modification_date"] != "") : echo " - Modifié le " . substr($article["modification_date"], 0, -8) . " à " . substr($article["modification_date"], -9, 6);
+                                                                                                                                                                                                            endif ?></em>
         </article>
         <?php endforeach ?>
         <nav>
@@ -24,7 +25,9 @@
             <?php endif ?>
         </nav>
     </section>
+
     <script>
+        // Pagination links underlining
         document.querySelectorAll("a[data-id]").forEach(function(link){
             if(link.dataset.id == <?= $page ?>){
                 link.style.textDecoration = "underline";

@@ -2,7 +2,6 @@ html {
   height: 100%;
   box-sizing: border-box;
 }
-
 *,
 *::before,
 *::after {
@@ -22,8 +21,8 @@ header {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
-  background-color: firebrick;
-  height: 140px;
+  background-color: var(--primary);
+  height: 150px;
   margin-bottom: 25px;
 }
 
@@ -44,13 +43,13 @@ header a {
   margin-bottom: 5px;
 }
 
-#index nav a{
+#index nav a {
   text-decoration: none;
   font-size: 20px;
 }
 
 #users i {
-  color: firebrick;
+  color: var(--primary);
 }
 
 #users td:last-of-type,
@@ -110,7 +109,7 @@ footer {
   padding: 1.2rem;
   text-align: center;
   width: 100%;
-  background-color: firebrick;
+  background-color: var(--primary);
 }
 
 table,
@@ -135,6 +134,11 @@ main#administrate {
   margin-left: 40px;
   display: flex;
   flex-direction: column;
+  width: 50%;
+}
+
+#administrate table {
+  width: 50%;
 }
 
 #administrate form input,
@@ -164,11 +168,11 @@ caption {
 }
 
 #comments article a i {
-  color: firebrick;
+  color: var(--primary);
 }
 
 main#index section nav a {
-  color: firebrick;
+  color: var(--primary);
 }
 
 main#index nav {
@@ -185,14 +189,14 @@ main#index aside {
   flex-direction: column;
   background: whitesmoke;
   border: 1px solid black;
-  position: fixed;
-  left: 40px;
+  position: absolute;
+  left: -130px;
 }
 
 main#index aside a {
   margin: 20px;
-  color: firebrick;
-  border: 3px double firebrick;
+  color: var(--primary);
+  border: 3px double var(--primary);
   width: 80px;
   display: block;
   text-align: center;
@@ -350,18 +354,18 @@ form#connectForm {
 }
 
 #connectForm button {
-  background-color: firebrick;
+  background-color: var(--primary);
   border-radius: 20px;
 }
 
 #administrate a {
-  color: firebrick;
+  color: var(--primary);
 }
 
 #arrowUp {
   position: fixed;
   z-index: 2;
-  color: firebrick;
+  color: var(--primary);
   cursor: pointer;
   transform: scale(1.7);
   bottom: -10%;
@@ -386,4 +390,15 @@ main#signup form {
 main#signup form > button {
   width: 100px;
   margin: 15px auto;
+}
+
+#comments p {
+  filter: blur(4);
+}
+
+#comments article > a.editCom {
+  position: relative;
+  bottom: 10px;
+  right: 10px;
+  font-size: 12px;
 }

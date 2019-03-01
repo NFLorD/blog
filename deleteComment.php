@@ -1,6 +1,9 @@
 <?php 
 require "library.php";
 
+if ($_SESSION['authLevel'] != 10) {
+    redirect("index.php");
+}
 
 if (!empty($_GET['id']) && is_int($_GET['id'])) {
     $_GET = sanitize(INPUT_GET);

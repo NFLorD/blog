@@ -2,7 +2,6 @@
 require "library.php";
 
 $template = "article";
-
 if (empty($_GET)) {
     redirect("index.php");
 }
@@ -30,7 +29,7 @@ $query = null;
 $DB = null;
 
 
-$title = substr($data['title'], 0, strlen($data['title']) - 1);
+$title = $data['title'];
 $_SESSION['previousLocation'] = "article.php?art=" . $key;
 
 require_once "templates/template.phtml";

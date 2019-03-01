@@ -2,6 +2,10 @@
 
 require "library.php";
 
+if ($_SESSION['authLevel'] != 10) {
+    redirect("index.php");
+}
+
 $id = filter_input(INPUT_GET, "id");
 
 $DB = connect("localhost", "blog");

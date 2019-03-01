@@ -3,6 +3,7 @@ require "library.php";
 
 if (empty($_POST['id']) || empty($_POST['auth'])) {
     echo "Error: empty POST";
+    redirect('index.php');
     exit;
 }
 
